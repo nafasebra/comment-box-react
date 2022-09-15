@@ -17,11 +17,34 @@ type IPropType = {
 
 function Comment(props: IPropType) {
   // TODO: briefing to props and send item props and destructuring it
+  // TODO: add method
   const { id, avatar, message, username, date, replies, replyId, rate } = props;
   const [doingReply, setDoingReply] = useState(false);
+  const [doingEdit, setDoingEdit] = useState(false);
+  const useCommentContext = useContext(CommentListContext);
 
   const CloseSendReplyBox = () => setDoingReply(false);
- 
+
+  const DeleteYourComment = (id: number) => {
+    // first showing modal, and delete selected comment.
+    useCommentContext.setCommentList([
+      ...useCommentContext.commentList.filter((item) => item.id !== id),
+    ]);
+  };
+
+  const EditYourComment = (id: number, message: string) => {
+    // first showing modal, and delete selected comment.
+    useCommentContext.setCommentList(
+      useCommentContext.commentList.map(item => {
+        if(item.id === id) {
+          item.message = message;
+          return item;
+        }
+        return item
+      })
+    );
+  }
+
   return (
     <>
       <div className="w-full bg-white rounded-md p-7 mb-5 flex flex-col lg:flex-row">
@@ -88,7 +111,7 @@ function Comment(props: IPropType) {
                     </svg>
                     <p className="ml-3">Delete</p>
                   </button>
-                  <button className="flex items-center text-purple cursor-pointer">
+                  <button onClick={() => EditYourComment(id, "this is my comment")} className="flex items-center text-purple cursor-pointer">
                     <svg
                       className="w-6 h-6"
                       fill="none"
