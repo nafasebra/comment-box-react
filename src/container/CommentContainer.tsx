@@ -18,6 +18,7 @@ function CommentContainer() {
           return (
             <Comment
               key={index}
+              id={comment.id}
               avatar={comment.profileImage}
               username={comment.username}
               message={comment.message}

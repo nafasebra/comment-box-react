@@ -10,7 +10,7 @@ function App() {
     <CommentListProvider>
       <div className="relative overflow-hidden w-[90%] lg:w-[900px] mx-auto min-h-[calc(100vh-50px)] py-5">
         <CommentContainer />
-        <SendCommentBox />
+        <SendCommentBox doReply={false} parentId={null} />
       </div>
     </CommentListProvider>
   );
