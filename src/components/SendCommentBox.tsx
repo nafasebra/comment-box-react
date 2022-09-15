@@ -15,14 +15,15 @@ function SendCommentBox() {
         ...UseCommentContext.commentList,
         {
           id: Number(CreateId(5)),
-          date: new Date().toString(),
+          date: "1 minutes ago",
           message: commentRef.current?.value || "comment",
           profileImage: CurrentUser.profileImage,
           username: CurrentUser.username,
           rate: 0,
           parentId: null
         }
-      ])
+      ]);
+      commentRef.current.value = ''
     }
   }
 
