@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { CommentListContext } from "../context/CommentContext";
 import { CurrentUser, ICommentType } from "../data";
 import CountDown from "./CountDown";
@@ -21,6 +21,7 @@ function Comment(props: IPropType) {
   const { id, avatar, message, username, date, replies, replyId, rate } = props;
   const [doingReply, setDoingReply] = useState(false);
   const [doingEdit, setDoingEdit] = useState(false);
+  const messageEditRef = useRef<HTMLTextAreaElement>(null);
   const useCommentContext = useContext(CommentListContext);
 
   const CloseSendReplyBox = () => setDoingReply(false);
@@ -32,18 +33,21 @@ function Comment(props: IPropType) {
     ]);
   };
 
-  const EditYourComment = (id: number, message: string) => {
-    // first showing modal, and delete selected comment.
-    useCommentContext.setCommentList(
-      useCommentContext.commentList.map(item => {
-        if(item.id === id) {
-          item.message = message;
+  const EditYourComment = (id: number) => {
+    let value: string = messageEditRef.current.value;
+    if(value !== "") {
+      useCommentContext.setCommentList(
+        useCommentContext.commentList.map((item) => {
+          if (item.id === id) {
+            item.message = value;
+            return item;
+          }
           return item;
-        }
-        return item
-      })
-    );
-  }
+        })
+      );
+      setDoingEdit(false);
+    }
+  };
 
   return (
     <>
@@ -111,7 +115,10 @@ function Comment(props: IPropType) {
                     </svg>
                     <p className="ml-3">Delete</p>
                   </button>
-                  <button onClick={() => EditYourComment(id, "this is my comment")} className="flex items-center text-purple cursor-pointer">
+                  <button 
+                    onClick={() => setDoingEdit(true)} 
+                    className="flex items-center text-purple cursor-pointer"
+                  >
                     <svg
                       className="w-6 h-6"
                       fill="none"
@@ -132,7 +139,16 @@ function Comment(props: IPropType) {
               )}
             </div>
           </div>
-          <p className="w-full pt-5 text-gray-400">{message}</p>
+          {doingEdit === false ? (
+            <p className="w-full pt-5 text-gray-400">{message}</p>
+          ) : (
+            <div className="flex items-start">
+              <textarea ref={messageEditRef} className="w-full outline-none border-2 focus:border-purple leading-7 mx-auto bg-transparent resize-none p-3  border-gray-200 rounded-md">{message}</textarea>
+              <button onClick={() => EditYourComment(id)} className="bg-purple hidden lg:block text-white rounded-md py-3 px-7 font-semibold hover:opacity-70">
+                EDIT
+              </button>
+            </div>
+          )}
           {/* mobile section */}
           <div className="flex lg:hidden items-center justify-between mt-4">
             <CountDown currentNumber={rate} />
@@ -177,7 +193,7 @@ function Comment(props: IPropType) {
                     </svg>
                     <p className="ml-3">Delete</p>
                   </button>
-                  <button className="flex items-center text-purple cursor-pointer">
+                  <button onClick={() => setDoingEdit(true)} className="flex items-center text-purple cursor-pointer">
                     <svg
                       className="w-6 h-6"
                       fill="none"
