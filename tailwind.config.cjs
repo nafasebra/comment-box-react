@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         "light": "#F5F6FA",
         "purple": "#5358B6",
+        "dark-overlay": "#00000020",
       },
     },
   },

@@ -142,9 +142,9 @@ function Comment(props: IPropType) {
           {doingEdit === false ? (
             <p className="w-full pt-5 text-gray-400">{message}</p>
           ) : (
-            <div className="flex items-start">
-              <textarea ref={messageEditRef} className="w-full outline-none border-2 focus:border-purple leading-7 mx-auto bg-transparent resize-none p-3  border-gray-200 rounded-md">{message}</textarea>
-              <button onClick={() => EditYourComment(id)} className="bg-purple hidden lg:block text-white rounded-md py-3 px-7 font-semibold hover:opacity-70">
+            <div className="flex flex-col lg:flex-row items-start mt-5">
+              <textarea ref={messageEditRef} className="w-full lg:w-auto flex-grow lg:mr-4 outline-none border-2 focus:border-purple leading-7 mx-auto bg-transparent resize-none p-3  border-gray-200 rounded-md">{message}</textarea>
+              <button onClick={() => EditYourComment(id)} className="bg-purple mt-2 lg:mt-0 text-white rounded-md py-3 px-7 font-semibold hover:opacity-70">
                 EDIT
               </button>
             </div>
