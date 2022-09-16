@@ -6,19 +6,25 @@ type PropType = {
 }
 
 type StateModalType = {
-    stateModal: boolean,
+    stateModal: boolean;
+    currentId: number;
     setStateModal: (a: boolean) => void;
+    setCurrentId: (a: number) => void;
 }
 
 export const StateModalContext = createContext<StateModalType>({
     stateModal: false,
-    setStateModal: () => {}
+    currentId: 0,
+    setStateModal: () => {},
+    setCurrentId: () => {}
 });
 
 export const StateModalProvider = ({children}: PropType) => {
     const [stateModal, setStateModal] = useState<boolean>(false);
+    const [currentId, setCurrentId] = useState<number>(0);
+
     return (
-        <StateModalContext.Provider value={{stateModal, setStateModal}}>
+        <StateModalContext.Provider value={{stateModal, setStateModal, currentId, setCurrentId}}>
             {children}
         </StateModalContext.Provider>
     )

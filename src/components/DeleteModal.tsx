@@ -1,12 +1,18 @@
 import { useContext } from "react";
+import { CommentListContext } from "../context/CommentContext";
 import { StateModalContext } from "../context/ModalContext";
 
-type IPropType = {
-  submitModal: () => void;
-}
-
-function DeleteModal({submitModal}: IPropType) {
+function DeleteModal() {
   const UseStateModalContext = useContext(StateModalContext);
+  const UseCommentContext = useContext(CommentListContext);
+
+  const DeleteYourComment = () => {
+    // first showing modal, and delete selected comment.
+    UseCommentContext.setCommentList([
+      ...UseCommentContext.commentList.filter((item) => item.id !== UseStateModalContext.currentId),
+    ]);
+    UseStateModalContext.setStateModal(false);
+  };
 
   return (
     <div
@@ -27,7 +33,7 @@ function DeleteModal({submitModal}: IPropType) {
           >
             No, cancel
           </button>
-          <button onClick={() => submitModal()} className="bg-red-500 text-white rounded-md uppercase py-3 px-6 hover:opacity-50">
+          <button onClick={DeleteYourComment} className="bg-red-500 text-white rounded-md uppercase py-3 px-6 hover:opacity-50">
             yes, delete
           </button>
         </div>

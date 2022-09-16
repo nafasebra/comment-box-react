@@ -47,6 +47,16 @@ export const commnets = [
   {
     id: 4,
     rate: 2,
+    parentId: 3,
+    date: "1 days ago",
+    profileImage: profile1,
+    username: "amyrobson",
+    message:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ullam unde placeat quaerat et accusamus voluptate excepturi magnam dolorem! Nulla!",
+  },
+  {
+    id: 5,
+    rate: 2,
     parentId: null,
     date: "1 days ago",
     profileImage: profile3,
@@ -55,9 +65,9 @@ export const commnets = [
       "Adipisicing elit. Culpa ullam unde placeat quaerat et accusamus voluptate excepturi magnam dolorem! Nulla!",
   },
   {
-    id: 5,
+    id: 6,
     rate: 2,
-    parentId: 4,
+    parentId: 5,
     date: "1 days ago",
     profileImage: profile1,
     username: "amyrobson",

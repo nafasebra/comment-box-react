@@ -26,13 +26,7 @@ function Comment(props: IPropType) {
   const useStateModalContext = useContext(StateModalContext);
   const messageEditRef = useRef<HTMLTextAreaElement>(null);
 
-  const DeleteYourComment = (id: number) => {
-    // first showing modal, and delete selected comment.
-    useCommentContext.setCommentList([
-      ...useCommentContext.commentList.filter((item) => item.id !== id),
-    ]);
-    useStateModalContext.setStateModal(false);
-  };
+  
 
   const EditYourComment = (id: number) => {
     let value: string = messageEditRef.current.value;
@@ -52,7 +46,7 @@ function Comment(props: IPropType) {
 
   return (
     <>
-      <DeleteModal submitModal={() => DeleteYourComment(id)} />
+      <DeleteModal />
       <div className="w-full bg-white rounded-md p-7 mb-5 flex flex-col lg:flex-row">
         <div className="hidden lg:flex">
           <CountDown currentNumber={rate} />
@@ -101,7 +95,10 @@ function Comment(props: IPropType) {
               ) : (
                 <div className="flex items-center">
                   <button
-                    onClick={() => useStateModalContext.setStateModal(true)}
+                    onClick={() => {
+                      useStateModalContext.setStateModal(true);
+                      useStateModalContext.setCurrentId(id)
+                    }}
                     className="flex items-center text-red-500 mr-5 cursor-pointer"
                   >
                     <svg
@@ -190,7 +187,10 @@ function Comment(props: IPropType) {
               ) : (
                 <div className="flex items-center">
                   <button
-                    onClick={() => useStateModalContext.setStateModal(true)}
+                    onClick={() => {
+                      useStateModalContext.setStateModal(true);
+                      useStateModalContext.setCurrentId(id)
+                    }}
                     className="flex items-center text-red-500 mr-5 cursor-pointer"
                   >
                     <svg
