@@ -18,6 +18,7 @@ type IPropType = {
 function Comment(props: IPropType) {
   // TODO: briefing to props and send item props and destructuring it
   // TODO: add method
+  
   const { id, avatar, message, username, date, replies, replyId, rate } = props;
   const [doingReply, setDoingReply] = useState(false);
   const [doingEdit, setDoingEdit] = useState(false);
