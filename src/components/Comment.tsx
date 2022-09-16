@@ -18,27 +18,25 @@ type IPropType = {
 
 function Comment(props: IPropType) {
   // TODO: briefing to props and send item props and destructuring it
-  // TODO: add method
-  
+
   const { id, avatar, message, username, date, replies, replyId, rate } = props;
-  const [doingReply, setDoingReply] = useState(false);
   const [doingEdit, setDoingEdit] = useState(false);
-  const messageEditRef = useRef<HTMLTextAreaElement>(null);
+  const [doingReply, setDoingReply] = useState(false);
   const useCommentContext = useContext(CommentListContext);
   const useStateModalContext = useContext(StateModalContext);
-
-  const CloseSendReplyBox = () => setDoingReply(false);
+  const messageEditRef = useRef<HTMLTextAreaElement>(null);
 
   const DeleteYourComment = (id: number) => {
     // first showing modal, and delete selected comment.
     useCommentContext.setCommentList([
       ...useCommentContext.commentList.filter((item) => item.id !== id),
     ]);
+    useStateModalContext.setStateModal(false);
   };
 
   const EditYourComment = (id: number) => {
     let value: string = messageEditRef.current.value;
-    if(value !== "") {
+    if (value !== "") {
       useCommentContext.setCommentList(
         useCommentContext.commentList.map((item) => {
           if (item.id === id) {
@@ -101,7 +99,10 @@ function Comment(props: IPropType) {
                 </button>
               ) : (
                 <div className="flex items-center">
-                  <button onClick={() => useStateModalContext.setStateModal(true)} className="flex items-center text-red-500 mr-5 cursor-pointer">
+                  <button
+                    onClick={() => useStateModalContext.setStateModal(true)}
+                    className="flex items-center text-red-500 mr-5 cursor-pointer"
+                  >
                     <svg
                       className="w-6 h-6"
                       fill="none"
@@ -118,8 +119,8 @@ function Comment(props: IPropType) {
                     </svg>
                     <p className="ml-3">Delete</p>
                   </button>
-                  <button 
-                    onClick={() => setDoingEdit(true)} 
+                  <button
+                    onClick={() => setDoingEdit(true)}
                     className="flex items-center text-purple cursor-pointer"
                   >
                     <svg
@@ -146,8 +147,16 @@ function Comment(props: IPropType) {
             <p className="w-full pt-5 text-gray-400">{message}</p>
           ) : (
             <div className="flex flex-col lg:flex-row items-start mt-5">
-              <textarea ref={messageEditRef} className="w-full lg:w-auto flex-grow lg:mr-4 outline-none border-2 focus:border-purple leading-7 mx-auto bg-transparent resize-none p-3  border-gray-200 rounded-md">{message}</textarea>
-              <button onClick={() => EditYourComment(id)} className="bg-purple mt-2 lg:mt-0 text-white rounded-md py-3 px-7 font-semibold hover:opacity-70">
+              <textarea
+                ref={messageEditRef}
+                className="w-full lg:w-auto flex-grow lg:mr-4 outline-none border-2 focus:border-purple leading-7 mx-auto bg-transparent resize-none p-3  border-gray-200 rounded-md"
+              >
+                {message}
+              </textarea>
+              <button
+                onClick={() => EditYourComment(id)}
+                className="bg-purple mt-2 lg:mt-0 text-white rounded-md py-3 px-7 font-semibold hover:opacity-70"
+              >
                 EDIT
               </button>
             </div>
@@ -179,7 +188,10 @@ function Comment(props: IPropType) {
                 </button>
               ) : (
                 <div className="flex items-center">
-                  <button onClick={() => useStateModalContext.setStateModal(true)} className="flex items-center text-red-500 mr-5 cursor-pointer">
+                  <button
+                    onClick={() => useStateModalContext.setStateModal(true)}
+                    className="flex items-center text-red-500 mr-5 cursor-pointer"
+                  >
                     <svg
                       className="w-6 h-6"
                       fill="none"
@@ -196,7 +208,10 @@ function Comment(props: IPropType) {
                     </svg>
                     <p className="ml-3">Delete</p>
                   </button>
-                  <button onClick={() => setDoingEdit(true)} className="flex items-center text-purple cursor-pointer">
+                  <button
+                    onClick={() => setDoingEdit(true)}
+                    className="flex items-center text-purple cursor-pointer"
+                  >
                     <svg
                       className="w-6 h-6"
                       fill="none"
