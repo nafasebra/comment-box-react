@@ -1,5 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { CommentListContext } from "../context/CommentContext";
+import { StateModalContext } from "../context/ModalContext";
 import { CurrentUser, ICommentType } from "../data";
 import CountDown from "./CountDown";
 import SendCommentBox from "./SendCommentBox";
@@ -24,6 +25,7 @@ function Comment(props: IPropType) {
   const [doingEdit, setDoingEdit] = useState(false);
   const messageEditRef = useRef<HTMLTextAreaElement>(null);
   const useCommentContext = useContext(CommentListContext);
+  const useStateModalContext = useContext(StateModalContext);
 
   const CloseSendReplyBox = () => setDoingReply(false);
 
@@ -99,7 +101,7 @@ function Comment(props: IPropType) {
                 </button>
               ) : (
                 <div className="flex items-center">
-                  <button className="flex items-center text-red-500 mr-5 cursor-pointer">
+                  <button onClick={() => useStateModalContext.setStateModal(true)} className="flex items-center text-red-500 mr-5 cursor-pointer">
                     <svg
                       className="w-6 h-6"
                       fill="none"
@@ -177,7 +179,7 @@ function Comment(props: IPropType) {
                 </button>
               ) : (
                 <div className="flex items-center">
-                  <button className="flex items-center text-red-500 mr-5 cursor-pointer">
+                  <button onClick={() => useStateModalContext.setStateModal(true)} className="flex items-center text-red-500 mr-5 cursor-pointer">
                     <svg
                       className="w-6 h-6"
                       fill="none"
