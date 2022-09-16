@@ -3,6 +3,7 @@ import { CommentListContext } from "../context/CommentContext";
 import { StateModalContext } from "../context/ModalContext";
 import { CurrentUser, ICommentType } from "../data";
 import CountDown from "./CountDown";
+import DeleteModal from "./DeleteModal";
 import SendCommentBox from "./SendCommentBox";
 
 type IPropType = {
@@ -18,7 +19,6 @@ type IPropType = {
 
 function Comment(props: IPropType) {
   // TODO: briefing to props and send item props and destructuring it
-
   const { id, avatar, message, username, date, replies, replyId, rate } = props;
   const [doingEdit, setDoingEdit] = useState(false);
   const [doingReply, setDoingReply] = useState(false);
@@ -52,6 +52,7 @@ function Comment(props: IPropType) {
 
   return (
     <>
+      <DeleteModal submitModal={() => DeleteYourComment(id)} />
       <div className="w-full bg-white rounded-md p-7 mb-5 flex flex-col lg:flex-row">
         <div className="hidden lg:flex">
           <CountDown currentNumber={rate} />

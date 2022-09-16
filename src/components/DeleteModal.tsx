@@ -1,7 +1,11 @@
 import { useContext } from "react";
 import { StateModalContext } from "../context/ModalContext";
 
-function DeleteModal() {
+type IPropType = {
+  submitModal: () => void;
+}
+
+function DeleteModal({submitModal}: IPropType) {
   const UseStateModalContext = useContext(StateModalContext);
 
   return (
@@ -23,7 +27,7 @@ function DeleteModal() {
           >
             No, cancel
           </button>
-          <button className="bg-red-500 text-white rounded-md uppercase py-3 px-6 hover:opacity-50">
+          <button onClick={() => submitModal()} className="bg-red-500 text-white rounded-md uppercase py-3 px-6 hover:opacity-50">
             yes, delete
           </button>
         </div>

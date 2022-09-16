@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import Comment from "../components/Comment";
-import DeleteModal from "../components/DeleteModal";
 import { CommentListContext } from "../context/CommentContext";
 
 function CommentContainer() {
@@ -14,7 +13,6 @@ function CommentContainer() {
 
   return (
     <>
-      <DeleteModal />
       {UseCommentContext.commentList.map((comment, index) => {
         if (comment.parentId === null) {
           return (
