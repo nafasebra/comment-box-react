@@ -20,16 +20,17 @@ type IPropType = {
 function Comment(props: IPropType) {
   // TODO: briefing to props and send item props and destructuring it
   const { id, avatar, message, username, date, replies, replyId, rate } = props;
+
   const [doingEdit, setDoingEdit] = useState(false);
   const [doingReply, setDoingReply] = useState(false);
+
   const useCommentContext = useContext(CommentListContext);
   const useStateModalContext = useContext(StateModalContext);
+
   const messageEditRef = useRef<HTMLTextAreaElement>(null);
 
-  
-
   const EditYourComment = (id: number) => {
-    let value: string = messageEditRef.current.value;
+    let value: string = messageEditRef!.current!.value;
     if (value !== "") {
       useCommentContext.setCommentList(
         useCommentContext.commentList.map((item) => {

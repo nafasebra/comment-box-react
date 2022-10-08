@@ -29,7 +29,7 @@ function SendCommentBox(props: IPropType) {
           parentId: doReply ? parentId : null,
         },
       ]);
-      commentRef.current.value = "";
+      commentRef!.current!.value = "";
     }
   };
 
